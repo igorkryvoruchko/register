@@ -10,6 +10,7 @@ $(".next").click(function(){
 
 	current_fs = $(this).parent();
 	next_fs = $(this).parent().next();
+	setCookie("page", $(this).data('id'), 2);
 	//activate next step on progressbar using the index of next_fs
 	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
@@ -44,7 +45,7 @@ $(".previous").click(function(){
 
 	current_fs = $(this).parent();
 	previous_fs = $(this).parent().prev();
-	
+	setCookie("page", $(this).data('id'), 2);
 	//de-activate current step on progressbar
 	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 	
@@ -85,7 +86,12 @@ $(".submit").click(function(){
 		data: {name: name, second_name: second_name, phone: phone, address: address, comment: comment},
 		async: true,
 		success: function (data) {
-			$("#feed_back").html(data);
+			if(typeof data == "string") {
+				$("#feed_back").html(data);
+			} else {
+				$("#result_title").html("Sorry, something went wrong!");
+				$("#result_body").html("Ooops! Code: "+data);
+			}
 			$("#next_result").click();
 		}
 	});
@@ -100,7 +106,19 @@ $(document).ready(function () {
 		$(".input_data")[i].value = getCookie($(".input_data")[i].name);
 	}
 
-
+	let p = getCookie("page") -2
+	if(p >= 0) {
+		switch (p) {
+			case 0:
+				$(".next")[p].click();
+				break;
+			case 1:
+				$("#first_field").attr('style', 'transform: scale(0.8); opacity: 0; display: none;');
+				$(".next")[p].click();
+				$("#progressbar li").eq(1).addClass("active");
+				break;
+		}
+	}
 })
 
 

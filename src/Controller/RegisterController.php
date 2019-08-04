@@ -38,16 +38,17 @@ class RegisterController extends AbstractController
         $entityManager->flush(); // save user
 
         $response = \App\Service\Request::sendRequest($user); // send POST request to http://test.vrgsoft.net/feedbacks
-
         $data = json_decode($response->getBody());
         if($response->getStatusCode() == 200) { //if response code = 200
+            $result = $data->feedbackDataId;
             $em = $this->getDoctrine()->getManager();
             $row = $entityManager->getRepository(Users::class)->find($user->getId());
             $row->setFeedBackDataId($data->feedbackDataId); //update feedBackDataId
             $em->flush();
         } else {
+            $result = $response->getStatusCode();
             $logger->error('An error occurred: response of http://test.vrgsoft.net/feedbacks is '.$response->getStatusCode());
         }
-        return new JsonResponse($data->feedbackDataId);
+        return new JsonResponse($result);
     }
 }

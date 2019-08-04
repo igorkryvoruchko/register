@@ -16,34 +16,34 @@
             <li>Result</li>
         </ul>
         <!-- fieldsets -->
-        <fieldset data-id="1">
+        <fieldset id="first_field">
             <h2 class="fs-title">Your personal data</h2>
             <h3 class="fs-subtitle">This is step 1</h3>
             <input class="input_data" type="text" name="name" placeholder="Name" />
             <input class="input_data" type="text" name="second_name" placeholder="Second Name" />
             <input class="input_data" type="tel" name="phone" placeholder="Phone" />
-            <input type="button" name="next" class="next action-button" value="Next" />
+            <input type="button" name="next" class="next action-button" data-id="2" value="Next" />
         </fieldset>
-        <fieldset data-id="2">
+        <fieldset>
             <h2 class="fs-title">Address</h2>
             <h3 class="fs-subtitle">Your address</h3>
             <input class="input_data" type="text" name="address" placeholder="Address" />
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-            <input type="button" name="next" class="next action-button" value="Next" />
+            <input type="button" name="previous" class="previous action-button" data-id="1" value="Previous" />
+            <input type="button" name="next" class="next action-button" data-id="3" value="Next" />
         </fieldset>
-        <fieldset data-id="3">
+        <fieldset>
             <h2 class="fs-title">Comment</h2>
             <h3 class="fs-subtitle">Write your comment</h3>
             <textarea class="input_data" name="comment" placeholder="Comment"></textarea>
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
+            <input type="button" name="previous" class="previous action-button" data-id="2" value="Previous" />
             <input type="button" name="submit" class="submit action-button" value="Submit" />
             <input type="button" name="next" style="display: none" class="next action-button" id="next_result" value="Next" />
         </fieldset>
-        <fieldset data-id="4">
+        <fieldset>
             <h2 class="fs-title">Result</h2>
-            <h3 class="fs-subtitle">Successful!</h3>
-            <h4>Your feedBackDataId = <span id="feed_back"></span></h4>
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
+            <h3 class="fs-subtitle" id="result_title">Successful!</h3>
+            <h6 id="result_body">Your feedBackDataId = <span id="feed_back"></span></h6>
+            <input type="button" name="previous" class="previous action-button" data-id="3" value="Previous" />
         </fieldset>
     </form>
 {% endblock %}
