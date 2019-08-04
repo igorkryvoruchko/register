@@ -13,6 +13,7 @@
             <li class="active">Personal Details</li>
             <li>Address</li>
             <li>Comment</li>
+            <li>Result</li>
         </ul>
         <!-- fieldsets -->
         <fieldset data-id="1">
@@ -36,6 +37,13 @@
             <textarea class="input_data" name="comment" placeholder="Comment"></textarea>
             <input type="button" name="previous" class="previous action-button" value="Previous" />
             <input type="button" name="submit" class="submit action-button" value="Submit" />
+            <input type="button" name="next" style="display: none" class="next action-button" id="next_result" value="Next" />
+        </fieldset>
+        <fieldset data-id="4">
+            <h2 class="fs-title">Result</h2>
+            <h3 class="fs-subtitle">Successful!</h3>
+            <h4>Your feedBackDataId = <span id="feed_back"></span></h4>
+            <input type="button" name="previous" class="previous action-button" value="Previous" />
         </fieldset>
     </form>
 {% endblock %}

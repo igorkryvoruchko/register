@@ -85,7 +85,8 @@ $(".submit").click(function(){
 		data: {name: name, second_name: second_name, phone: phone, address: address, comment: comment},
 		async: true,
 		success: function (data) {
-			console.log(data);
+			$("#feed_back").html(data);
+			$("#next_result").click();
 		}
 	});
 })
