@@ -34,27 +34,16 @@ class RegisterController extends AbstractController
         $user->setPhone($request->get('phone'));
         $user->setAddress($request->get('address'));
         $user->setComment($request->get('comment'));
-        $user->setFeedBackDataId("");
         $entityManager->persist($user);
-        $entityManager->flush();
+        $entityManager->flush(); // save user
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'http://test.vrgsoft.net/feedbacks', array(
-                'form_params' => array(
-                    'client_id' => $user->getId(),
-                    'address' => $request->get('address'),
-                    'comment' => $request->get('comment')
-                ),
-                'headers' => [
-                    'Content-Type' => 'application/x-www-form-urlencoded',
-                ]
-            )
-        );
+        $response = \App\Service\Request::sendRequest($user); // send POST request to http://test.vrgsoft.net/feedbacks
+
         $data = json_decode($response->getBody());
-        if($response->getStatusCode() == 200) {
+        if($response->getStatusCode() == 200) { //if response code = 200
             $em = $this->getDoctrine()->getManager();
             $row = $entityManager->getRepository(Users::class)->find($user->getId());
-            $row->setFeedBackDataId($data->feedbackDataId);
+            $row->setFeedBackDataId($data->feedbackDataId); //update feedBackDataId
             $em->flush();
         } else {
             $logger->error('An error occurred: response of http://test.vrgsoft.net/feedbacks is '.$response->getStatusCode());
